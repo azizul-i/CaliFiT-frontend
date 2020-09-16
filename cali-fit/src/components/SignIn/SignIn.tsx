@@ -10,19 +10,10 @@ import {
   Segment,
   Icon,
 } from "semantic-ui-react"
-
-interface IUserInformation {
-  isLoggedIn: boolean
-  userID?: number
-  name?: string
-  email?: string
-  picture?: string
-}
-
-const componentClicked = () => console.log("Clicked!")
+import { IUserInformation } from "../../Interfaces/Interfaces"
+import { Redirect } from "react-router-dom"
 
 const SignIn = () => {
-  // const [isLoggedIn, setLoggedIn] = useState<Boolean>(false)
   const [userInformation, setUserInformation] = useState<IUserInformation>({
     isLoggedIn: false,
     userID: -1,
@@ -38,13 +29,17 @@ const SignIn = () => {
         userID: response.id,
         name: response.name,
         email: response.email,
+        picture: response.picture.data.url,
       }
     })
+    try {
+      localStorage.setItem("name", response.name)
+      localStorage.setItem("isLoggedIn", response.isLoggedIn)
+      localStorage.setItem("userID", response.id)
+    } catch (err) {
+      console.log(err)
+    }
   }
-
-  useEffect(() => {
-    console.log(userInformation.isLoggedIn)
-  }, [userInformation])
 
   const logoutUser = () => {
     setUserInformation(() => {
@@ -55,6 +50,9 @@ const SignIn = () => {
   if (userInformation.isLoggedIn) {
     return (
       <div>
+        <Redirect
+          to={{ pathname: "/profile", state: { profile: userInformation } }}
+        />
         <p>Welcome {userInformation.name}</p>
         <Button onClick={logoutUser} color="orange">
           {" "}
@@ -91,8 +89,6 @@ const SignIn = () => {
             </Button>
           </Segment>
         </Form>
-        {/* <Message> */}
-        {/* </Message> */}
         <Message>
           <a href="https://google.com">Register</a>
         </Message>
@@ -100,7 +96,11 @@ const SignIn = () => {
           appId="307710587194171"
           autoLoad={true}
           fields="name,email,picture"
-          onClick={componentClicked}
+          onClick={() => {
+            console.log("Testing FB Button!")
+          }}
+          size="medium"
+          icon="fa-facebook"
           callback={responseFacebook}
         />
       </Grid.Column>
