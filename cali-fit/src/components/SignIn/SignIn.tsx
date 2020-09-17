@@ -71,6 +71,7 @@ const SignIn = () => {
           size="small"
           icon="fa-facebook"
           callback={responseFacebook}
+          textButton={"Sign in with Facebook"}
         />
       </Grid.Column>
     </Grid>
