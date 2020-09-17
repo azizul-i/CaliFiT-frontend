@@ -41,7 +41,7 @@ const Workouts = (props: any) => {
   const renderWorkouts = () => {
     const workouts = userWorkouts.map((workout, index) => (
       // <li key={index}>
-      <WorkoutCard workout={workout} callback={setReload} />
+      <WorkoutCard key={index} workout={workout} callback={setReload} />
       // </li>
     ))
 

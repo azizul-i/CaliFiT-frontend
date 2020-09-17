@@ -40,47 +40,53 @@ const WorkoutCard = (props: {
   return (
     <Card>
       <Card.Content header={workoutName} />
-      <Button
-        onClick={() => {
-          handleTextToSpeech("Workout Name: " + workoutName)
-        }}
-        inverted
-        color="orange"
-        size="mini"
-        icon
-      >
-        <Icon name="sound" />
-      </Button>
+      <Card.Meta>
+        <Button
+          onClick={() => {
+            handleTextToSpeech("Workout Name: " + workoutName)
+          }}
+          inverted
+          color="orange"
+          size="mini"
+          icon
+        >
+          <Icon name="sound" />
+        </Button>
+      </Card.Meta>
 
       <Card.Content description={description} />
-      <Button
-        onClick={() => {
-          handleTextToSpeech("Description: " + description)
-        }}
-        inverted
-        color="orange"
-        size="mini"
-        icon
-      >
-        <Icon name="sound" />
-      </Button>
+      <Card.Meta>
+        <Button
+          onClick={() => {
+            handleTextToSpeech("Description: " + description)
+          }}
+          inverted
+          color="green"
+          size="mini"
+          icon
+        >
+          <Icon name="sound" />
+        </Button>
+      </Card.Meta>
       {duration ? (
         <Card.Content extra>Duration (mins): {duration / 60}</Card.Content>
       ) : null}
       {requirements ? (
         <Card.Content extra>Requirements: {requirements} </Card.Content>
       ) : null}
-      <Button
-        onClick={() => {
-          handleTextToSpeech("Requirements: " + requirements)
-        }}
-        inverted
-        color="orange"
-        size="mini"
-        icon
-      >
-        <Icon name="sound" />
-      </Button>
+      <Card.Meta>
+        <Button
+          onClick={() => {
+            handleTextToSpeech("Requirements: " + requirements)
+          }}
+          inverted
+          color="blue"
+          size="mini"
+          icon
+        >
+          <Icon name="sound" />
+        </Button>
+      </Card.Meta>
       <Card.Content extra>
         {addToLobby ? (
           <Label color="orange" tag>

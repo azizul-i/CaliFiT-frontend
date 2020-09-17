@@ -50,6 +50,7 @@ const WorkoutExcercisesModal = (props: IWorkout) => {
   const renderExcercises = () => {
     const excerciseList = excercises.map((excercise, index) => (
       <ExcerciseItem
+        key={index}
         excerciseID={excercise.excerciseID}
         workoutID={excercise.workoutID}
         excerciseName={excercise.excerciseName}
