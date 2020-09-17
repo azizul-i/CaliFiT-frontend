@@ -27,10 +27,6 @@ const SignIn = () => {
   const responseFacebook = (response: any) => {
     console.log("Facebook Response:")
     console.log(response)
-    // if (response.status) {
-    //   return
-    // }
-    // debugger
     if (response.status === "unknown") {
       return null
     }
