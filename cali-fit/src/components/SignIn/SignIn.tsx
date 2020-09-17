@@ -31,6 +31,9 @@ const SignIn = () => {
     //   return
     // }
     // debugger
+    if (response.status === "unknown") {
+      return null
+    }
     setUserInformation((prevState) => {
       return {
         isLoggedIn: true,

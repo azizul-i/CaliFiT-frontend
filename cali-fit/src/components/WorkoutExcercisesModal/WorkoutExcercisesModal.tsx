@@ -26,7 +26,10 @@ const WorkoutExcercisesModal = (props: IWorkout) => {
   let history = useHistory()
 
   const loadExcercises = async () => {
-    if (localStorage.getItem("userID") === "0") {
+    if (
+      localStorage.getItem("userID") === "0" &&
+      !window.location.href.includes("lobby")
+    ) {
       history.push("/")
     }
     const response = await GetExcercisesByWorkoutId(workoutFields.workoutID)
