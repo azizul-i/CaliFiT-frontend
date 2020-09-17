@@ -69,7 +69,7 @@ const AddWorkoutModal = (props: { userID: number }) => {
 
   const handleSubmit = async () => {
     await AddWorkout(workoutFields)
-    history.go(0)
+    window.location.reload()
     setOpen(false)
   }
 

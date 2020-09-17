@@ -12,6 +12,7 @@ const Lobby = (props: any) => {
   //   const [profileInformation, updateProfile] = useState<IUserInformation>({
   //     isLoggedIn: false,
   //   })
+  const [reload, setReload] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [userWorkouts, setUserWorkouts] = useState<IWorkout[]>([])
   let history = useHistory()
@@ -38,16 +39,7 @@ const Lobby = (props: any) => {
   const renderWorkouts = () => {
     const workouts = userWorkouts.map((workout, index) => (
       // <li key={index}>
-      <WorkoutCard
-        workoutName={workout.workoutName}
-        duration={workout.duration}
-        requirements={workout.requirements}
-        addToLobby={workout.addToLobby}
-        difficultyLevel={workout.difficultyLevel}
-        workoutID={workout.workoutID}
-        userID={workout.userID}
-        description={workout.description}
-      />
+      <WorkoutCard workout={workout} callback={setReload} />
       // </li>
     ))
     console.log("Workouts!: ", workouts)

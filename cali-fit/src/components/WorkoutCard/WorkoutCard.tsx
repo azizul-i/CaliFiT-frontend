@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Dispatch, SetStateAction } from "react"
 import "semantic-ui-css/semantic.min.css"
 import { Card, Label, Progress, Button } from "semantic-ui-react"
 import { IWorkout } from "../../Interfaces/Interfaces"
@@ -6,8 +6,12 @@ import EditWorkoutModal from "../EditWorkoutModal/EditWorkoutModal"
 import WorkoutExcercisesModal from "../WorkoutExcercisesModal/WorkoutExcercisesModal"
 import { DeleteWorkout } from "../../api/Api"
 import { useHistory } from "react-router"
+import { callbackify } from "util"
 
-const WorkoutCard = (props: IWorkout) => {
+const WorkoutCard = (props: {
+  workout: IWorkout
+  callback: Dispatch<SetStateAction<boolean>>
+}) => {
   const {
     workoutID,
     workoutName,
@@ -17,13 +21,13 @@ const WorkoutCard = (props: IWorkout) => {
     difficultyLevel,
     userID,
     description,
-  } = props
+  } = props.workout
 
   let history = useHistory()
 
   const handleDelete = async () => {
     await DeleteWorkout(Number(workoutID))
-    history.go(0)
+    window.location.reload()
   }
 
   return (

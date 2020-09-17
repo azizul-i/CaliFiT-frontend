@@ -92,7 +92,7 @@ const EditWorkoutModal = (props: IWorkout) => {
 
   const handleSubmit = async () => {
     await EditWorkout(workoutFields)
-    history.go(0)
+    window.location.reload()
     setOpen(false)
   }
 
