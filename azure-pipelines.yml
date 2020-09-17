@@ -9,6 +9,11 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  rootDir: 'cali-fit'
+  buildDir: $(rootDir)/build
+
+
 steps:
   - task: NodeTool@0
     inputs:
