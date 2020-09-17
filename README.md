@@ -1,2 +1,2 @@
 # CaliFiT-frontend
-A Fitness Tracker web app (front-end)
+A web app that lets you create, find, and share workouts (front-end)
