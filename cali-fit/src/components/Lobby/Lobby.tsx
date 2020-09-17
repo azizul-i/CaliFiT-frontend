@@ -1,12 +1,11 @@
 import React, { useState } from "react"
-import { Redirect, useHistory } from "react-router-dom"
 import "semantic-ui-css/semantic.min.css"
-import { Button, Header, Icon, Card, Image, CardGroup } from "semantic-ui-react"
-import { IUserInformation } from "../../Interfaces/Interfaces"
+import { CardGroup } from "semantic-ui-react"
 import RedirectTabs from "../RedirectTabs/RedirectTabs"
 import { GetPublicWorkouts } from "../../api/Api"
 import { IWorkout } from "../../Interfaces/Interfaces"
 import WorkoutCard from "../WorkoutCard/WorkoutCard"
+import "./style.css"
 
 const Lobby = (props: any) => {
   //   const [profileInformation, updateProfile] = useState<IUserInformation>({
@@ -15,20 +14,15 @@ const Lobby = (props: any) => {
   const [reload, setReload] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [userWorkouts, setUserWorkouts] = useState<IWorkout[]>([])
-  let history = useHistory()
 
   const loadWorkouts = async () => {
     const response = await GetPublicWorkouts()
-    console.log("Loaded User information from API")
-    console.log(response)
     if (!response) {
-      console.log("Failed to load user information")
       return
     }
     if (response.status === 200) {
       setUserWorkouts(response.data)
     }
-    console.log("User Workouts ", userWorkouts)
     setLoaded(true)
   }
 
@@ -42,7 +36,6 @@ const Lobby = (props: any) => {
       <WorkoutCard workout={workout} callback={setReload} />
       // </li>
     ))
-    console.log("Workouts!: ", workouts)
     return (
       <CardGroup centered doubling stackable={true}>
         {" "}
@@ -53,19 +46,20 @@ const Lobby = (props: any) => {
 
   return (
     <div>
-      <meta
-        property="og:url"
-        content="https://califit.azurewebsites.net/lobby"
-      />
-      <meta property="og:type" content="article" />
-      <meta property="og:title" content="Lobby of Workouts!" />
-      <meta
-        property="og:description"
-        content="Use, upload and share your workouts now!"
-      />
-      <meta property="og:image" content="" />
       <RedirectTabs tab="Lobby" />
       {renderWorkouts()}
+      <br />
+      <iframe
+        title={"FacebookLike&Share"}
+        src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fcalifit.azurewebsites.net%2Flobby&width=450&layout=standard&action=like&size=large&share=true&height=35&appId=307710587194171"
+        width="450"
+        height="35"
+        // style="border:none;overflow:hidden"
+        scrolling="no"
+        frameBorder="0"
+        allowTransparency={true}
+        allow="encrypted-media"
+      ></iframe>
     </div>
   )
 }

@@ -1,17 +1,14 @@
 import React, { useState } from "react"
-import { Button, Header, Image, Modal, Form } from "semantic-ui-react"
-import { IExcercise, IWorkout } from "../../Interfaces/Interfaces"
-import { AddExcercise, AddWorkout } from "../../api/Api"
+import { Button, Modal, Form } from "semantic-ui-react"
+import { IExcercise } from "../../Interfaces/Interfaces"
+import { AddExcercise } from "../../api/Api"
 import { useHistory } from "react-router"
 
 const AddExcerciseModal = (props: { workoutID: number }) => {
   const [open, setOpen] = useState(false)
-  const [loaded, setLoaded] = useState(false)
   const [excerciseFields, setFields] = useState<IExcercise>({
     workoutID: props.workoutID,
   })
-
-  let history = useHistory()
 
   const handleSetChange = (e: any) => {
     const value = Number(e.target.value)
@@ -43,7 +40,6 @@ const AddExcerciseModal = (props: { workoutID: number }) => {
       ...prevState,
       reps: value,
     }))
-    console.log("Reps: ", value)
   }
 
   const handleRestChange = (e: any, data: any) => {
@@ -52,7 +48,6 @@ const AddExcerciseModal = (props: { workoutID: number }) => {
       ...prevState,
       restPeriod: value,
     }))
-    console.log("Rest: ", value)
   }
 
   const handleSubmit = async () => {

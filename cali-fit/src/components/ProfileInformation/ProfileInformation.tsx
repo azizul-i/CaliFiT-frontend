@@ -25,14 +25,9 @@ const ProfileInformation = (props: any) => {
     const response = await GetUserByFacebookId(
       localStorage.getItem("facebookID")
     )
-    console.log("Loaded User information from API")
-    console.log(response)
     if (response.status === 404) {
-      console.log("Failed to load user information")
       return
     }
-    console.log("FB Response")
-    console.log(response.data)
     updateProfile(() => {
       return {
         avatarURL: response.data.avatarURL,
@@ -48,8 +43,6 @@ const ProfileInformation = (props: any) => {
     const { userID } = response.data
     localStorage.setItem("userID", userID.toString())
     setLoaded(true)
-    console.log("Profile Info")
-    console.log(userID)
   }
 
   if (!loaded) {

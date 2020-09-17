@@ -33,16 +33,13 @@ const WorkoutExcercisesModal = (props: IWorkout) => {
       history.push("/")
     }
     const response = await GetExcercisesByWorkoutId(workoutFields.workoutID)
-    console.log("Loaded User information from API")
-    console.log(response)
     if (!response) {
-      console.log("Failed to load user information")
       return
     }
     if (response.status === 200) {
       setExcercises(response.data)
     }
-    console.log("User Excercises ", excercises)
+
     setLoaded(true)
   }
 
@@ -63,7 +60,7 @@ const WorkoutExcercisesModal = (props: IWorkout) => {
         description={excercise.description}
       />
     ))
-    console.log("Excercises!: ", excercises)
+
     return <Item.Group>{excerciseList}</Item.Group>
   }
 

@@ -21,18 +21,16 @@ const Workouts = (props: any) => {
     if (localStorage.getItem("userID") === "0") {
       history.push("/")
     }
-    console.log(localStorage.getItem("userID"))
+
     const response = await GetWorkoutsByUserId(localStorage.getItem("userID"))
-    console.log("Loaded User information from API")
-    console.log(response)
+
     if (!response) {
-      console.log("Failed to load user information")
       return
     }
     if (response.status === 200) {
       setUserWorkouts(response.data)
     }
-    console.log("User Workouts ", userWorkouts)
+
     setLoaded(true)
   }
 
@@ -46,7 +44,7 @@ const Workouts = (props: any) => {
       <WorkoutCard workout={workout} callback={setReload} />
       // </li>
     ))
-    console.log("Workouts!: ", workouts)
+
     return (
       <CardGroup centered doubling stackable={true}>
         {" "}

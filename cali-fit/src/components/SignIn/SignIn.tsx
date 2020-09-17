@@ -1,15 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import FacebookLogin from "react-facebook-login"
 import "semantic-ui-css/semantic.min.css"
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Message,
-  Segment,
-  Icon,
-} from "semantic-ui-react"
+import { Grid, Header, Icon } from "semantic-ui-react"
 import { IUserInformation } from "../../Interfaces/Interfaces"
 import { useHistory } from "react-router"
 import { AddUser } from "../../api/Api"
@@ -25,8 +17,6 @@ const SignIn = () => {
   let history = useHistory()
 
   const responseFacebook = (response: any) => {
-    console.log("Facebook Response:")
-    console.log(response)
     if (response.status === "unknown") {
       return null
     }

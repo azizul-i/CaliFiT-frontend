@@ -28,7 +28,6 @@ export const AddUser = async (
     })
     .then((res) => console.log(res))
     .then((err) => console.log(err))
-  console.log(response)
 
   return response
 }
@@ -37,7 +36,6 @@ export const GetUserByFacebookId = async (facebookId: string | null = "") => {
   const response = await axios.get<string, AxiosResponse<IFacebookResponse>>(
     API_BASE_URL + "GetUserByFacebookId/" + facebookId
   )
-  console.log(response)
   return response
 }
 
@@ -50,7 +48,6 @@ export const GetWorkoutsByUserId = async (userID: string | null = "-1") => {
       }
     )
 
-    console.log("UserID")
     return response
   }
   return null
@@ -114,7 +111,6 @@ export const DeleteWorkout = async (workoutId: number) => {
 }
 
 export const DeleteExcercise = async (excerciseID: number) => {
-  console.log("Excercise ID: ", excerciseID)
   if (excerciseID) {
     const response = await axios.delete<string, AxiosResponse<IExcercise>>(
       API_BASE_URL + "DeleteExcercise/" + excerciseID
