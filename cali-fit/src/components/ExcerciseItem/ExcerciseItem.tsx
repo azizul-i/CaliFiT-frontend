@@ -27,12 +27,7 @@ const ExcerciseItem = (props: IExcercise) => {
     return (
       <Item>
         <Item.Content>
-          <Item.Header>
-            {excerciseName}{" "}
-            <Button compact icon color="red" size="mini" onClick={handleDelete}>
-              <Icon name="delete" />
-            </Button>
-          </Item.Header>
+          <Item.Header>{excerciseName} </Item.Header>
           <Item.Meta>
             <Label color="orange">
               Sets
@@ -49,7 +44,20 @@ const ExcerciseItem = (props: IExcercise) => {
           </Item.Meta>
           <Item.Description>{description}</Item.Description>
           {/* <Item.Extra>Category: {category}</Item.Extra> */}
-          <Item.Meta></Item.Meta>
+          <Item.Meta>
+            {" "}
+            {!window.location.href.includes("lobby") ? (
+              <Button
+                compact
+                icon
+                color="red"
+                size="mini"
+                onClick={handleDelete}
+              >
+                <Icon name="delete" /> Remove
+              </Button>
+            ) : null}
+          </Item.Meta>
         </Item.Content>
       </Item>
     )

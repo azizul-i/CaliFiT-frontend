@@ -56,6 +56,13 @@ export const GetWorkoutsByUserId = async (userID: string | null = "-1") => {
   return null
 }
 
+export const GetPublicWorkouts = async () => {
+  const response = await axios.get<string, AxiosResponse<IWorkout[]>>(
+    API_BASE_URL + "GetPublicWorkouts"
+  )
+  return response
+}
+
 export const EditWorkout = async (workout: IWorkout) => {
   if (workout) {
     const response = await axios.put<string, AxiosResponse<IWorkout>>(

@@ -75,7 +75,9 @@ const WorkoutExcercisesModal = (props: IWorkout) => {
       <Modal.Content>
         <Modal.Description>
           {renderExcercises()}
-          <AddExcercisesModal workoutID={Number(workoutFields.workoutID)} />
+          {!window.location.href.includes("lobby") ? (
+            <AddExcercisesModal workoutID={Number(workoutFields.workoutID)} />
+          ) : null}
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>

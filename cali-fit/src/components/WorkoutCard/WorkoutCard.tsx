@@ -59,20 +59,24 @@ const WorkoutCard = (props: IWorkout) => {
         ) : null}
       </Card.Content>
       <Card.Content extra>
-        <Button onClick={handleDelete} color="red">
-          {" "}
-          Delete{" "}
-        </Button>
-        <EditWorkoutModal
-          workoutName={workoutName}
-          duration={duration}
-          requirements={requirements}
-          addToLobby={addToLobby}
-          difficultyLevel={difficultyLevel}
-          workoutID={workoutID}
-          userID={userID}
-          description={description}
-        />
+        {!window.location.href.includes("lobby") ? (
+          <Button onClick={handleDelete} color="red">
+            {" "}
+            Delete{" "}
+          </Button>
+        ) : null}
+        {!window.location.href.includes("lobby") ? (
+          <EditWorkoutModal
+            workoutName={workoutName}
+            duration={duration}
+            requirements={requirements}
+            addToLobby={addToLobby}
+            difficultyLevel={difficultyLevel}
+            workoutID={workoutID}
+            userID={userID}
+            description={description}
+          />
+        ) : null}
         <WorkoutExcercisesModal
           workoutName={workoutName}
           duration={duration}
