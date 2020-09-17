@@ -53,6 +53,17 @@ const Lobby = (props: any) => {
 
   return (
     <div>
+      <meta
+        property="og:url"
+        content="https://califit.azurewebsites.net/lobby"
+      />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content="Lobby of Workouts!" />
+      <meta
+        property="og:description"
+        content="Use, upload and share your workouts now!"
+      />
+      <meta property="og:image" content="" />
       <RedirectTabs tab="Lobby" />
       {renderWorkouts()}
     </div>
