@@ -2,48 +2,67 @@ import { profile } from "console"
 import React, { useState } from "react"
 import "semantic-ui-css/semantic.min.css"
 import { Button, Header, Icon, Card, Image } from "semantic-ui-react"
-import { IUserInformation } from "../../Interfaces/Interfaces"
+import {
+  IFacebookResponse,
+  IUserInformation,
+} from "../../Interfaces/Interfaces"
 import RedirectTabs from "../RedirectTabs/RedirectTabs"
+import { Redirect, useHistory } from "react-router-dom"
+import { GetUserByFacebookId } from "../../api/Api"
 
 const ProfileInformation = (props: any) => {
-  const [profileInformation, updateProfile] = useState<IUserInformation>({
-    isLoggedIn: false,
+  const [profileInformation, updateProfile] = useState<IFacebookResponse>({
+    userID: -1,
   })
+  const [loaded, setLoaded] = useState<Boolean>(false)
 
-  try {
-    if (props.location.state.profile && !profileInformation.isLoggedIn) {
-      updateProfile((prevState) => {
-        console.log(prevState)
-        const {
-          userID,
-          name,
-          email,
-          picture,
-          isLoggedIn,
-        } = props.location.state.profile
-        return {
-          isLoggedIn: isLoggedIn,
-          userID: userID,
-          name: name,
-          email: email,
-          picture: picture,
-        }
-      })
+  let history = useHistory()
+
+  const loadUserInformation = async () => {
+    if (localStorage.getItem("facebookID") === null) {
+      history.push("/")
     }
-  } catch (err) {
-    if (!profileInformation.isLoggedIn) {
-      updateProfile((prevState) => {
-        console.log(prevState)
-        const userID = localStorage.getItem("userID")
-        return {
-          isLoggedIn: true,
-          userID: Number(userID),
-        }
-      })
+    const response = await GetUserByFacebookId(
+      localStorage.getItem("facebookID")
+    )
+    console.log("Loaded User information from API")
+    console.log(response)
+    if (response.status === 404) {
+      console.log("Failed to load user information")
+      return
     }
+    console.log("FB Response")
+    console.log(response.data)
+    updateProfile(() => {
+      return {
+        avatarURL: response.data.avatarURL,
+        completedTasks: response.data.completedTasks,
+        email: response.data.email,
+        facebookID: response.data.facebookID,
+        introduction: response.data.introduction,
+        name: response.data.name,
+        userID: response.data.userID,
+        workouts: response.data.workouts,
+      }
+    })
+    const { userID } = response.data
+    localStorage.setItem("userID", userID.toString())
+    setLoaded(true)
+    console.log("Profile Info")
+    console.log(userID)
   }
 
-  const { name, email, picture } = profileInformation
+  if (!loaded) {
+    loadUserInformation()
+  }
+
+  const handleLogout = () => {
+    setLoaded(false)
+    localStorage.clear()
+    history.push("/")
+  }
+
+  const { name, email, avatarURL } = profileInformation
 
   return (
     <div>
@@ -57,7 +76,7 @@ const ProfileInformation = (props: any) => {
       <Card centered={true}>
         <Card.Content>
           <Card.Header>
-            <Image src={picture} wrapped ui={false} size="mini" avatar />
+            <Image src={avatarURL} wrapped ui={false} size="mini" avatar />
             {name}
           </Card.Header>
           <Card.Meta>{email}</Card.Meta>
@@ -68,7 +87,7 @@ const ProfileInformation = (props: any) => {
             <Icon name="settings" />
             Edit Profile
           </Button>
-          <Button color="red">
+          <Button onClick={handleLogout} color="red">
             <Icon name="shutdown" />
             Log out
           </Button>

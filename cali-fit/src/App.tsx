@@ -6,6 +6,7 @@ import Lobby from "./components/Lobby/Lobby"
 import SignIn from "./components/SignIn/SignIn"
 import Workouts from "./components/Workouts/Workouts"
 import Dashboard from "./components/Dashboard/Dashboard"
+import RenderWorkoutPage from "./components/RenderWorkoutPage/RenderWorkoutPage"
 
 function App() {
   return (
@@ -17,7 +18,6 @@ function App() {
           <Route path="/lobby" component={Lobby} />
           <Route path="/lobby:id" component={Lobby} />
           <Route path="/workouts" component={Workouts} />
-          <Route path="/workouts:id" component={Workouts} />
           <Route path="/Dashboard" component={Dashboard} />
         </Switch>
       </BrowserRouter>

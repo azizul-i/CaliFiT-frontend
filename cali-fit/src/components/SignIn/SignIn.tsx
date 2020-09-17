@@ -11,7 +11,8 @@ import {
   Icon,
 } from "semantic-ui-react"
 import { IUserInformation } from "../../Interfaces/Interfaces"
-import { Redirect } from "react-router-dom"
+import { useHistory } from "react-router"
+import { AddUser } from "../../api/Api"
 
 const SignIn = () => {
   const [userInformation, setUserInformation] = useState<IUserInformation>({
@@ -21,8 +22,15 @@ const SignIn = () => {
     email: "John@email.com",
   })
 
+  let history = useHistory()
+
   const responseFacebook = (response: any) => {
+    console.log("Facebook Response:")
     console.log(response)
+    // if (response.status) {
+    //   return
+    // }
+    // debugger
     setUserInformation((prevState) => {
       return {
         isLoggedIn: true,
@@ -32,34 +40,23 @@ const SignIn = () => {
         picture: response.picture.data.url,
       }
     })
+
     try {
       localStorage.setItem("name", response.name)
-      localStorage.setItem("isLoggedIn", response.isLoggedIn)
-      localStorage.setItem("userID", response.id)
+      localStorage.setItem("isLoggedIn", "true")
+      localStorage.setItem("email", response.email)
+      localStorage.setItem("facebookID", String(response.id))
+      AddUser(
+        response.name,
+        response.email,
+        "",
+        String(response.id),
+        response.picture.data.url
+      )
+      history.push("/profile")
     } catch (err) {
       console.log(err)
     }
-  }
-
-  const logoutUser = () => {
-    setUserInformation(() => {
-      return { isLoggedIn: false }
-    })
-  }
-
-  if (userInformation.isLoggedIn) {
-    return (
-      <div>
-        <Redirect
-          to={{ pathname: "/profile", state: { profile: userInformation } }}
-        />
-        <p>Welcome {userInformation.name}</p>
-        <Button onClick={logoutUser} color="orange">
-          {" "}
-          Log out
-        </Button>
-      </div>
-    )
   }
 
   return (
@@ -68,38 +65,11 @@ const SignIn = () => {
         <Header as="h1" color="orange" textAlign="center">
           <Icon name="group" /> CaliFiT
         </Header>
-        <Form size="large">
-          <Segment stacked>
-            <Form.Input
-              fluid
-              icon="user"
-              iconPosition="left"
-              placeholder="E-mail address"
-            />
-            <Form.Input
-              fluid
-              icon="lock"
-              iconPosition="left"
-              placeholder="Password"
-              type="password"
-            />
-
-            <Button color="orange" fluid size="large">
-              Sign In
-            </Button>
-          </Segment>
-        </Form>
-        <Message>
-          <a href="https://google.com">Register</a>
-        </Message>
         <FacebookLogin
           appId="307710587194171"
-          autoLoad={true}
+          autoLoad={false}
           fields="name,email,picture"
-          onClick={() => {
-            console.log("Testing FB Button!")
-          }}
-          size="medium"
+          size="small"
           icon="fa-facebook"
           callback={responseFacebook}
         />
