@@ -87,7 +87,6 @@ const EditWorkoutModal = (props: IWorkout) => {
       ...prevState,
       difficultyLevel: value,
     }))
-    console.log("Difficulty Level: ", value)
   }
 
   const handleSubmit = async () => {

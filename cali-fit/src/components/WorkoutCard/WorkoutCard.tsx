@@ -1,12 +1,19 @@
 import React, { Dispatch, SetStateAction } from "react"
 import "semantic-ui-css/semantic.min.css"
-import { Card, Label, Progress, Button } from "semantic-ui-react"
+import {
+  Card,
+  Label,
+  Progress,
+  Button,
+  Responsive,
+  Icon,
+} from "semantic-ui-react"
 import { IWorkout } from "../../Interfaces/Interfaces"
 import EditWorkoutModal from "../EditWorkoutModal/EditWorkoutModal"
 import WorkoutExcercisesModal from "../WorkoutExcercisesModal/WorkoutExcercisesModal"
 import { DeleteWorkout } from "../../api/Api"
 import { useHistory } from "react-router"
-import { callbackify } from "util"
+import { handleTextToSpeech } from "../../TextToSpeech/TextToSpeech"
 
 const WorkoutCard = (props: {
   workout: IWorkout
@@ -33,13 +40,47 @@ const WorkoutCard = (props: {
   return (
     <Card>
       <Card.Content header={workoutName} />
+      <Button
+        onClick={() => {
+          handleTextToSpeech("Workout Name: " + workoutName)
+        }}
+        inverted
+        color="orange"
+        size="mini"
+        icon
+      >
+        <Icon name="sound" />
+      </Button>
+
       <Card.Content description={description} />
+      <Button
+        onClick={() => {
+          handleTextToSpeech("Description: " + description)
+        }}
+        inverted
+        color="orange"
+        size="mini"
+        icon
+      >
+        <Icon name="sound" />
+      </Button>
       {duration ? (
         <Card.Content extra>Duration (mins): {duration / 60}</Card.Content>
       ) : null}
       {requirements ? (
-        <Card.Content extra>Requirements: {requirements}</Card.Content>
+        <Card.Content extra>Requirements: {requirements} </Card.Content>
       ) : null}
+      <Button
+        onClick={() => {
+          handleTextToSpeech("Requirements: " + requirements)
+        }}
+        inverted
+        color="orange"
+        size="mini"
+        icon
+      >
+        <Icon name="sound" />
+      </Button>
       <Card.Content extra>
         {addToLobby ? (
           <Label color="orange" tag>

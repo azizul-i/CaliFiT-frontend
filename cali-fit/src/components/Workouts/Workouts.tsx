@@ -55,6 +55,7 @@ const Workouts = (props: any) => {
 
   return (
     <div>
+      {/* {responsiveVoice.speak("Hello!")} */}
       <RedirectTabs tab="Workouts" />
       <AddWorkoutModal userID={Number(localStorage.getItem("userID"))} />
       <br />

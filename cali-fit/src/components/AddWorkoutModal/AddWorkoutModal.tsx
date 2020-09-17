@@ -64,7 +64,6 @@ const AddWorkoutModal = (props: { userID: number }) => {
       ...prevState,
       difficultyLevel: value,
     }))
-    console.log("Difficulty Level: ", value)
   }
 
   const handleSubmit = async () => {
